@@ -3,13 +3,12 @@ pragma solidity ^0.8.17;
 
 import "./zombie_factory.sol";
 
-abstract contract KittyInterface {
+interface IKitty {
     function getKitty(
         uint256 _id
     )
         external
         view
-        virtual
         returns (
             bool isGestating,
             bool isReady,
@@ -26,7 +25,7 @@ abstract contract KittyInterface {
 
 contract ZombieFeeding is ZombieFactory {
     address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
-    KittyInterface kittyContract = KittyInterface(ckAddress);
+    IKitty kittyContract = IKitty(ckAddress);
 
     function feedAndMultiply(uint _zombieId, uint _targetDna) public {
         require(msg.sender == zombieToOwner[_zombieId]);
